@@ -7,7 +7,9 @@ const bodyParser=require('body-parser');
 const cookieParser=require('cookie-parser');
 const cors=require('cors');
 
+//My routes
 const authRoutes=require('./routes/auth')
+const userRoutes=require('./routes/user')
 
 //DB Connection
 mongoose.connect(process.env.DATABASE, {useNewUrlParser: true, useUnifiedTopology: true,
@@ -23,6 +25,7 @@ app.use(cors());
 
 //My Routes
 app.use('/api',authRoutes)
+app.use('/api',userRoutes)
 
 //port
 const port = process.env.PORT||2700;
