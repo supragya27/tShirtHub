@@ -10,7 +10,7 @@ router.param("userId", getUserById)
 router.param("categoryId", getCategoryById)
 
 //actual routes
-router.post("/category/create/:iserId", isSignedIn, isAuthenticated, isAdmin, createCategory)
+router.post("/category/create/:userId", isSignedIn, isAuthenticated, isAdmin, createCategory)
 
 router.get("/category/:categoryId", getCategory)
 router.get("/categories", getAllCategory)
