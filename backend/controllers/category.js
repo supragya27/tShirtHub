@@ -13,8 +13,8 @@ exports.getCategoryById = (req, res, next, id) => {
 }
 
 exports.createCategory = (req, res) => {
-    const category = new Category(req.body)
-    Category.save((err, category) => {
+    const category = new Category(req.body);
+    category.save((err, category) => {
         if (err) {
             return res.status(400).json({
                 error: "Not able to save category in DB" //error handling can be further expanded
