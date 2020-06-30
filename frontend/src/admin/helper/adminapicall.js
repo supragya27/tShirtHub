@@ -1,7 +1,7 @@
 const { API } = require("../../backend");
 
 //category calls
-export const createCaregory = (userId, token, category) => {
+export const createCategory = (userId, token, category) => {
   return fetch(`${API}/category/create/${userId}`, {
     method: "POST",
     headers: {
