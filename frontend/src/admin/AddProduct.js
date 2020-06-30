@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import Base from "../core/Base";
 import { Link } from "react-router-dom";
 import { getCategories } from "./helper/adminapicall";
+import { isAuthenticated } from "../auth/helper";
 
 function AddProduct() {
+  const { user, token } = isAuthenticated();
+
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -49,7 +52,11 @@ function AddProduct() {
   }, []);
 
   const onSubmit = () => {};
-  const handleChange = (name) => (e) => {};
+  const handleChange = (name) => (e) => {
+    const value = name === "photo" ? e.target.file[0] : e.target.value;
+    formData.set(name, value);
+    setValues({ ...values, [name]: value });
+  };
   const createProductForm = () => (
     <form>
       <span>Post photo</span>
@@ -98,8 +105,12 @@ function AddProduct() {
           placeholder="Category"
         >
           <option>Select</option>
-          <option value="a">a</option>
-          <option value="b">b</option>
+          {categories &&
+            categories.map((cate, index) => (
+              <option key={index} value={cate._id}>
+                {cate.name}
+              </option>
+            ))}
         </select>
       </div>
       <div className="form-group">
