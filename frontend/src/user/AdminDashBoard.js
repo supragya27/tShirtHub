@@ -51,12 +51,12 @@ function AdminDashBoard() {
             </Link>
           </li>
           <li className="list-group-item">
-            <Link to="/admin/products" className="nav-link text-success">
+            <Link to="/admin/orders" className="nav-link text-success">
               Manage Order
             </Link>
           </li>
           <li className="list-group-item">
-            <Link to="/admin/orders" className="nav-link text-success">
+            <Link to="/admin/products" className="nav-link text-success">
               Manage Product
             </Link>
           </li>
