@@ -77,8 +77,8 @@ export const getProduct = (productId) => {
   return fetch(`${API}/product/${productId}`, {
     method: "GET",
   })
-    .then((res) => {
-      return res.json();
+    .then((response) => {
+      return response.json();
     })
     .catch((err) => console.log(err));
 };

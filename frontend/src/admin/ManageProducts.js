@@ -43,7 +43,7 @@ function ManageProducts() {
             Total {products.length} products
           </h2>
 
-          {products?.map((product, index) => (
+          {products.map((product, index) => (
             <div key={index} className="row text-center mb-2 ">
               <div className="col-4">
                 <h3 className="text-white text-left">{product.name}</h3>
@@ -51,7 +51,7 @@ function ManageProducts() {
               <div className="col-4">
                 <Link
                   className="btn btn-success"
-                  to={`/admin/product/update/productId`}
+                  to={`/admin/product/update/${product._id}`}
                 >
                   <span className="">Update</span>
                 </Link>
