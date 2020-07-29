@@ -1,16 +1,21 @@
-import React from 'react'
-import '../styles.css'
-import { API } from '../backend'
-import Base from './Base'
+import React from "react";
+import "../styles.css";
+import { API } from "../backend";
+import Base from "./Base";
+import Card from "./Card";
+
 function Home() {
-    console.log("API IS ", API)
-    return (
-        <div>
-            <Base title="Home Page" description="Welcome to the tShirt store!">
-                <h1 className="text-white">Hello front end</h1>
-            </Base>
+  return (
+    <div>
+      <Base title="Home Page" description="Welcome to the tShirt store!">
+        <div className="row text-center">
+          <div className="col-4">
+            <Card />
+          </div>
         </div>
-    )
+      </Base>
+    </div>
+  );
 }
 
-export default Home
+export default Home;
