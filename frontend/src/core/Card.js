@@ -1,16 +1,31 @@
-import React from "react";
-import Imagehelper from "./helper/Imagehelper";
+import React, { useState, useEffect } from "react";
+import ImageHelper from "./helper/Imagehelper";
+import { Redirect } from "react-router-dom";
+import { addItemToCart } from "./helper/Carthelper";
 
-const Card = ({ product, addToCart = true, removeFromCart = false }) => {
-  const cardTitle = product ? product.name : "A photo";
-  const cardDescription = product ? product.description : "description";
-  const cardPrice = product ? product.price : "price";
+const Card = ({ product, addtoCart = true, removeFromCart = false }) => {
+  const [redirect, setRedirect] = useState(false);
+  const [count, setCount] = useState(product.count);
 
-  const showAddToCart = (addToCart) => {
+  const cartTitle = product ? product.name : "A photo from pexels";
+  const cartDescrption = product ? product.description : "Default description";
+  const cartPrice = product ? product.price : "DEFAULT";
+
+  const addToCart = () => {
+    addItemToCart(product, () => setRedirect(true));
+  };
+
+  const getARedirect = (redirect) => {
+    if (redirect) {
+      return <Redirect to="/cart" />;
+    }
+  };
+
+  const showAddToCart = (addtoCart) => {
     return (
-      addToCart && (
+      addtoCart && (
         <button
-          onClick={() => {}}
+          onClick={addToCart}
           className="btn btn-block btn-outline-success mt-2 mb-2"
         >
           Add to Cart
@@ -18,6 +33,7 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
       )
     );
   };
+
   const showRemoveFromCart = (removeFromCart) => {
     return (
       removeFromCart && (
@@ -32,19 +48,21 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
   };
   return (
     <div className="card text-white bg-dark border border-info ">
-      <div className="card-header lead">{cardTitle}</div>
+      <div className="card-header lead">{cartTitle}</div>
       <div className="card-body">
-        <Imagehelper product={product} />
+        {getARedirect(redirect)}
+        <ImageHelper product={product} />
         <p className="lead bg-success font-weight-normal text-wrap">
-          {cardDescription}
+          {cartDescrption}
         </p>
-        <p className="btn btn-success rounded  btn-sm px-4">$ {cardPrice}</p>
+        <p className="btn btn-success rounded  btn-sm px-4">$ {cartPrice}</p>
         <div className="row">
-          <div className="col-12">{showAddToCart(addToCart)}</div>
+          <div className="col-12">{showAddToCart(addtoCart)}</div>
           <div className="col-12">{showRemoveFromCart(removeFromCart)}</div>
         </div>
       </div>
     </div>
   );
 };
+
 export default Card;
