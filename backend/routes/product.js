@@ -1,30 +1,57 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const { getProductById, getAllUniqueCategories, getAllProducts, updateProduct, deleteProduct, createProduct, getProduct, photo } = require("../controllers/product")
-const { isAdmin, isAuthenticated, isSignedIn } = require("../controllers/auth")
-const { getUserById } = require("../controllers/user")
+const {
+  getProductById,
+  getAllUniqueCategories,
+  getAllProducts,
+  updateProduct,
+  deleteProduct,
+  createProduct,
+  getProduct,
+  photo,
+} = require("../controllers/product");
+const { isAdmin, isAuthenticated, isSignedIn } = require("../controllers/auth");
+const { getUserById } = require("../controllers/user");
 
 //params
-router.param("userId", getUserById)
-router.param("productId", getProductById)
+router.param("userId", getUserById);
+router.param("productId", getProductById);
 
 //routes
 //create route
-router.post("/product/create/:userId", isSignedIn, isAuthenticated, isAdmin, createProduct)
+router.post(
+  "/product/create/:userId",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  createProduct
+);
 
 //read routes
-router.get("product/:productId", getProduct)
-router.get("product/photo/:productId", photo)
+router.get("/product/:productId", getProduct);
+router.get("/product/photo/:productId", photo);
 
 //delete route
-router.delete("/product/:productId/:userId", isSignedIn, isAuthenticated, isAdmin, deleteProduct)
+router.delete(
+  "/product/:productId/:userId",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  deleteProduct
+);
 //update route
-router.put("/product/:productId/:userId", isSignedIn, isAuthenticated, isAdmin, updateProduct)
+router.put(
+  "/product/:productId/:userId",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  updateProduct
+);
 
 //listing route
-router.get("/products", getAllProducts)
+router.get("/products", getAllProducts);
 
-router.get("/products/categories", getAllUniqueCategories)
+router.get("/products/categories", getAllUniqueCategories);
 
-module.exports = router
+module.exports = router;
