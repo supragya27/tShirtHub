@@ -8,7 +8,7 @@ function Imagehelper({ product }) {
   return (
     <div className="rounded border border-success p-2">
       <img
-        src={`${imageurl}`}
+        src={imageurl}
         alt="photo"
         style={{ maxHeight: "100%", maxWidth: "100%" }}
         className="mb-3 rounded"
