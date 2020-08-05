@@ -24,7 +24,6 @@ function BraintreeCheckout({
 
   const getToken = (userId, token) => {
     getmeToken(userId, token).then((info) => {
-      console.log("INFORMATION", info);
       if (info?.err) {
         setInfo({ ...info, error: info.err });
       } else {
@@ -43,8 +42,8 @@ function BraintreeCheckout({
               options={{ authorization: info.clientToken }}
               onInstance={(instance) => (info.instance = instance)}
             />
-            <button className="btn btn-block btn-success" onClick={() => {}}>
-              Buy
+            <button className="btn btn-outline-success" onClick={onPurchase}>
+              Pay with BrainTree
             </button>
           </div>
         ) : (
@@ -57,9 +56,47 @@ function BraintreeCheckout({
   useEffect(() => {
     getToken(userId, token);
   }, []);
+
+  const onPurchase = () => {
+    setInfo({ loading: true });
+    let nonce;
+    let getNonce = info?.instance
+      ?.requestPaymentMethod()
+      .then((data) => {
+        nonce = data.nonce;
+        const paymentData = {
+          paymentMethodNonce: nonce,
+          amount: getAmount(),
+        };
+        processPayment(userId, token, paymentData).then((response) => {
+          setInfo({ ...info, success: response.success, loading: false });
+          const orderData = {
+            products: products,
+            transaction_id: response.transaction.id,
+            amount: response.transaction.amount,
+          };
+          createOrder(userId, token, orderData);
+          cartEmpty(() => {
+            console.log("cart smptied!");
+          });
+          setReload(!reload);
+        });
+      })
+      .catch((error) => {
+        setInfo({ loading: false, success: false });
+      });
+  };
+  const getAmount = () => {
+    let amount = 0;
+    products.map((p) => {
+      amount = amount + p.price;
+    });
+    return amount;
+  };
+
   return (
     <div>
-      <h3>Test BT</h3>
+      <h3>BrainTree Checkout ${getAmount()}</h3>
       {showbtdropIn()}
     </div>
   );
