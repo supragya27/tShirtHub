@@ -7,12 +7,12 @@ var gateway = braintree.connect({
   privateKey: "c95bbc723884a6dba1093cb548dfb435",
 });
 
-exports.getToken = () => {
-  gateway.client_token.generate({}, function (err, response) {
+exports.getToken = (req, res) => {
+  gateway.clientToken.generate({}, function (err, response) {
     if (err) {
-      response.status(500).json(err);
+      res.status(500).send(err);
     } else {
-      response.send(response);
+      res.send(response);
     }
   });
 };
@@ -29,11 +29,11 @@ exports.processPayment = (req, res) => {
         submitForSettlement: true,
       },
     },
-    function (err, res) {
+    function (err, result) {
       if (err) {
-        response.status(500).json(err);
+        res.status(500).json(err);
       } else {
-        response.send(response);
+        res.json(result);
       }
     }
   );
