@@ -63,7 +63,7 @@ function StripeCheckoutFunc({
         shippingAddress
         billingAddress
       >
-        <button className="btn btn-success">Pay with stripe</button>
+        <button className="btn btn-outline-success">Pay with stripe</button>
       </StripeCheckout>
     ) : (
       <Link to="/signin">
