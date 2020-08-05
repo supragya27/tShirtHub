@@ -24,11 +24,11 @@ function BraintreeCheckout({
 
   const getToken = (userId, token) => {
     getmeToken(userId, token).then((info) => {
-      // console.log("INFORMATION", info);
-      if (info.err) {
+      console.log("INFORMATION", info);
+      if (info?.err) {
         setInfo({ ...info, error: info.err });
       } else {
-        const clientToken = info.clientToken;
+        const clientToken = info?.clientToken;
         setInfo({ clientToken });
       }
     });
